@@ -16,7 +16,7 @@ import java.util.List;
 public class CorsFilter implements Filter {
 
     private final List<String> allowedOrigins = Arrays.asList(
-            "https://aura-ai-chatbot-app.vercel.app",
+            "https://groqdebugger.vercel.app",
             "http://localhost:3000",
             "http://localhost:4200",  // Angular
             "http://localhost:5173"   // Vite
