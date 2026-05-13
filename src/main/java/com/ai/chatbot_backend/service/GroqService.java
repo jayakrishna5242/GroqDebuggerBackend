@@ -34,9 +34,28 @@ public class GroqService {
             List<Map<String, Object>> messages = new ArrayList<>();
 
             // Optional system prompt
-            messages.add(Map.of("role", "system", "content",
-                    "You are a helpful assistant. Use the conversation history to provide context-aware responses."));
-
+            // System prompt to force concise responses
+            messages.add(Map.of(
+                    "role", "system",
+                    "content",
+                    """
+                    You are a concise and helpful AI assistant.
+    
+                    Rules:
+                    1. Answer directly in 2-5 sentences unless the user explicitly asks for detailed explanation.
+                    2. Do not provide unnecessary background information.
+                    3. Do not repeat the user's question.
+                    4. Use bullet points only when listing multiple items.
+                    5. Prefer short, practical answers.
+                    6. If the answer can be given in one sentence, do so.
+                    7. Do not include examples unless requested.
+                    8. Do not add introductions or conclusions.
+                    9. For coding questions, provide only the required code and a brief explanation.
+                    10. If the user asks for 'detailed', 'explain', or 'step-by-step', then provide a comprehensive response.
+    
+                    Use the conversation history to provide context-aware responses.
+                    """
+            ));
             // Add previous messages
             for (Map<String, String> historyMsg : conversationHistory) {
                 messages.add(Map.of(
